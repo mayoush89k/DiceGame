@@ -29,10 +29,23 @@
         <button id="new-game" class="btn">&#10070; NEW GAME</button>
         <img src="assets/Images/dice-1.png" alt="Dice 1" id="dice1">
         <img src="assets/Images/dice-1.png" alt="Dice 2" id="dice2">
-        <button id="roll-dice" class="btn"><i class="material-icons"> assignment_turned_in</i> ROLL DICE</button>
+        <button id="roll-dice" class="btn"><i class="material-icons"> casino</i> ROLL DICE</button>
         <button id="hold" class="btn"><i class="material-icons"> assistant_photo</i> HOLD</button>
       </section>
     </main>
+    <section id="window">
+        <ul>Game Instruction
+            <li>In your turn - roll the dice (at least once) and accumulate the result in "current"</li>
+            <li>You can roll again or click "Hold" to save the points from "current" and end the turn.</li>
+            <li>Note! if you get 6-6 - you will lose all points from "current" and the turn will go to your opponent.</li>
+            <li>If you managed to reach exactly the target score - you win! If you passed it - you loose...</li>
+        </ul>
+        <section id="target-container">
+            <h4>Please select a target score</h4>
+            <input id="target" type="number" value="100">
+            <button id="start">START GAME</button>
+        </section>
+    </section>
     <script src="./assets/game.js"></script>
   </body>
 </html>
