@@ -45,3 +45,11 @@ body{
     width: 100px;
     height: 100px;
 }
+
+.btn{
+    font-size: 20px;
+    background-color: white;
+    opacity: 50%;
+    border-radius: 10px;
+    padding: 10px;
+}
