@@ -109,14 +109,14 @@ function RollDices() {
   // check rolled same dice faces
   if (diceRoll1 == diceRoll2) {
     /* if you get 6 and 6 hold your event listeners for 1 second and display a message that you got 6 and 6*/
-    roll.removeEventListener("click", RollDices);
+    removeListener();
     const msg =
       "HOLDING ROLL DICE \n You lost your current score, and your turn";
     currentPlayer == 1
       ? (holdingPlayer1.innerText = msg)
       : (holdingPlayer2.innerText = msg);
     setTimeout(() => {
-      roll.addEventListener("click", RollDices);
+      reAddListener();
       holdingPlayer1.innerText = "";
       holdingPlayer2.innerText = "";
     }, 3000);
@@ -174,7 +174,7 @@ function holdScore() {
 newGame.addEventListener("click", newGameFunction);
 function newGameFunction() {
   reAddListener();
-console.log('neew Hame');
+  console.log("neew Hame");
   target = 0;
   finalScore1 = 0;
   finalScore2 = 0;
