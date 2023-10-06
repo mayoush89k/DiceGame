@@ -54,6 +54,13 @@ body{
     padding: 10px;
 }
 
+/*holding game style*/
+.holdingPlayer{
+    font-size: 20px;
+    text-align: center;
+}
+
+
 /* start up window instructions */
 #window{
     position: absolute;
