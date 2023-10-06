@@ -1,2 +1,2 @@
 # DiceGame
-[Netlify link](dice-23-game.netlify.app)
+[Netlify link](https://dice-23-game.netlify.app)
