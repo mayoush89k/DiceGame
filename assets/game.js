@@ -1,7 +1,7 @@
 //catch DOM Window instruction
 const start_window = document.querySelector("#window");
 const inputTarget = document.querySelector("#target");
-const list = document.querySelector('#list')
+const list = document.querySelector("#list");
 
 //catch DOM Sections
 const player1_currentScore = document.querySelector("#player1-score");
@@ -46,12 +46,34 @@ let diceRoll2 = 0;
 // Add local storage so our data will be persistent.
 const winner = [{}];
 
+// Key Press event listener - easier for user
+document.addEventListener("keydown", keyDownFunction);
+function keyDownFunction(e) {
+  switch (e.key) {
+    case "N":
+    case "n":
+      newGameFunction();
+      break;
+    case "R":
+    case "r":
+      RollDices();
+      break;
+    case "H":
+    case "h":
+      holdScore();
+      break;
+    default:
+        break;
+  }
+}
+
 // add listener to window items
 start_window.addEventListener("click", startGame);
+document.addEventListener("keypress", startGame);
 
 function startGame(e) {
   // listener to specific item (start game button)
-  if (e.target.id == "start") {
+  if (e.target.id == "start" || e.key == 'Enter') {
     target = Number(inputTarget.value);
     start_window.classList.add("hide");
   }
@@ -159,11 +181,11 @@ function newGameFunction() {
   player2_finalScore.innerText = 0;
 
   start_window.classList.remove("hide");
-  list.setAttribute('id' , 'hide-list')
+  list.setAttribute("id", "hide-list");
   inputTarget.value = 100;
 
-  player_winner[0].innerText = ""
-  player_winner[1].innerText = ""
+  player_winner[0].innerText = "";
+  player_winner[1].innerText = "";
 }
 
 // check winner function
