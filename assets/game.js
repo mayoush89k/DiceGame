@@ -7,6 +7,8 @@ const player1_currentScore = document.querySelector("#player1-score");
 const player2_currentScore = document.querySelector("#player2-score");
 const player1_finalScore = document.querySelector("#final-score1");
 const player2_finalScore = document.querySelector("#final-score2");
+const player1_container = document.querySelector("#player1-container");
+const player2_container = document.querySelector("#player2-container");
 
 //catch DOM Buttons
 const newGame = document.querySelector("#new-game");
@@ -87,23 +89,36 @@ function RollDices() {
       holdingPlayer1.innerText = "";
       holdingPlayer2.innerText = "";
     }, 3000);
-    // player will loose his current score
-    currentPlayer == 1 ? (currentScore1 = 0) : (currentScore2 = 0);
-    currentPlayer = currentPlayer == 1 ? 2 : 1;
-  } else {
+    changingPlayers()
+} else {
     // player will add dice faces number to his current score
     currentPlayer == 1
-      ? (currentScore1 += diceRoll1 + diceRoll2)
-      : (currentScore2 += diceRoll1 + diceRoll2);
-  }
-  saveCurrent();
-  checkWinner();
+    ? (currentScore1 += diceRoll1 + diceRoll2)
+    : (currentScore2 += diceRoll1 + diceRoll2);
+}
+saveCurrent();
+checkWinner();
 }
 // save scores to DOM catcher variables
 function saveCurrent() {
-  player1_currentScore.children[1].innerText = currentScore1;
-  player2_currentScore.children[1].innerText = currentScore2;
+    player1_currentScore.children[1].innerText = currentScore1;
+    player2_currentScore.children[1].innerText = currentScore2;
 }
+
+// changing between players turn
+function changingPlayers(){
+    if(currentPlayer == 1){
+        player1_container.setAttribute('id' , "player2-container")
+        player2_container.setAttribute("id" , "player1-container")
+    }
+    else{
+        player1_container.setAttribute("id" , "player1-container")
+        player2_container.setAttribute("id" , "player2-container")
+    }
+    // player will loose his current score
+    currentPlayer == 1 ? (currentScore1 = 0) : (currentScore2 = 0);
+    currentPlayer = currentPlayer == 1 ? 2 : 1;
+} 
 
 // Hold the current player his current Score
 hold.addEventListener("click", holdScore);
@@ -114,7 +129,7 @@ function holdScore() {
     : (finalScore2 += currentScore2);
   player1_finalScore.innerText = finalScore1;
   player2_finalScore.innerText = finalScore2;
-  currentPlayer = currentPlayer == 1 ? 2 : 1;
+  changingPlayers()
   currentScore1 = 0;
   currentScore2 = 0;
   saveCurrent();
