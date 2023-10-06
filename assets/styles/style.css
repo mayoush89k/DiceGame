@@ -139,6 +139,9 @@ body {
 #target-container {
   height: 30%;
 }
+.small{
+    font-size: 1rem;
+}
 /* smart phone responsive */
 @media (max-width: 500px) {
   #player1-score,
