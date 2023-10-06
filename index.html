@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dice Game</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./assets/styles/style.css" />
   </head>
   <body>
@@ -14,11 +17,11 @@
         <section id="final-score1">0</section>
         <section class="winner"></section>
         <section id="player1-score">
-            <section class="title">current</section>
-            <section class="score">0</section>
+          <section class="title">current</section>
+          <section class="score">0</section>
         </section>
-    </section>
-    <section class="player-container" id="player2-container">
+      </section>
+      <section class="player-container" id="player2-container">
         <h3>Player2</h3>
         <section id="final-score2">0</section>
         <section class="winner"></section>
@@ -28,25 +31,46 @@
         </section>
       </section>
       <section id="game">
+        <section id="db">
+          <section id="db-player1">0</section>
+          <section id="db-player2">0</section>
+        </section>
         <button id="new-game" class="btn">&#10070; NEW GAME</button>
-        <img src="assets/Images/dice-1.png" alt="Dice 1" id="dice1">
-        <img src="assets/Images/dice-1.png" alt="Dice 2" id="dice2">
-        <button id="roll-dice" class="btn"><i class="material-icons"> casino</i> ROLL DICE</button>
-        <button id="hold" class="btn"><i class="material-icons"> assistant_photo</i> HOLD</button>
+        <img src="assets/Images/dice-1.png" alt="Dice 1" id="dice1" />
+        <img src="assets/Images/dice-1.png" alt="Dice 2" id="dice2" />
+        <button id="roll-dice" class="btn">
+          <i class="material-icons"> casino</i> ROLL DICE
+        </button>
+        <button id="hold" class="btn">
+          <i class="material-icons"> assistant_photo</i> HOLD
+        </button>
       </section>
     </main>
     <section id="window">
-        <ul id="list">Game Instruction
-            <li>In your turn - roll the dice (at least once) and accumulate the result in "current"</li>
-            <li>You can roll again or click "Hold" to save the points from "current" and end the turn.</li>
-            <li>Note! if you get 6-6 - you will lose all points from "current" and the turn will go to your opponent.</li>
-            <li>If you managed to reach exactly the target score - you win! If you passed it - you loose...</li>
-        </ul>
-        <section id="target-container">
-            <h4>Please select a target score</h4>
-            <input id="target" type="number" value="100">
-            <button id="start">START GAME</button>
-        </section>
+      <ul id="list">
+        Game Instruction
+        <li>
+          In your turn - roll the dice (at least once) and accumulate the result
+          in "current"
+        </li>
+        <li>
+          You can roll again or click "Hold" to save the points from "current"
+          and end the turn.
+        </li>
+        <li>
+          Note! if you get 6-6 - you will lose all points from "current" and the
+          turn will go to your opponent.
+        </li>
+        <li>
+          If you managed to reach exactly the target score - you win! If you
+          passed it - you loose...
+        </li>
+      </ul>
+      <section id="target-container">
+        <h4>Please select a target score</h4>
+        <input id="target" type="number" value="100" />
+        <button id="start">START GAME</button>
+      </section>
     </section>
     <script src="./assets/game.js"></script>
   </body>

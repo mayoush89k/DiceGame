@@ -46,6 +46,13 @@ let diceRoll2 = 0;
 // Add local storage so our data will be persistent.
 const winner = [{}];
 
+// catch DOM sections
+const PreviousWin_player1 = document.getElementById("db-player1");
+const PreviousWin_player2 = document.getElementById("db-player2");
+// save it as variable
+let player1_win = 0;
+let player2_win = 0;
+
 // Key Press event listener - easier for user
 document.addEventListener("keydown", keyDownFunction);
 function keyDownFunction(e) {
@@ -63,7 +70,7 @@ function keyDownFunction(e) {
       holdScore();
       break;
     default:
-        break;
+      break;
   }
 }
 
@@ -73,7 +80,7 @@ document.addEventListener("keypress", startGame);
 
 function startGame(e) {
   // listener to specific item (start game button)
-  if (e.target.id == "start" || e.key == 'Enter') {
+  if (e.target.id == "start" || e.key == "Enter") {
     target = Number(inputTarget.value);
     start_window.classList.add("hide");
   }
@@ -166,6 +173,8 @@ function holdScore() {
 */
 newGame.addEventListener("click", newGameFunction);
 function newGameFunction() {
+  reAddListener();
+console.log('neew Hame');
   target = 0;
   finalScore1 = 0;
   finalScore2 = 0;
@@ -186,12 +195,16 @@ function newGameFunction() {
 
   player_winner[0].innerText = "";
   player_winner[1].innerText = "";
+
+  PreviousWin_player1.innerText = player1_win;
+  PreviousWin_player2.innerText = player2_win;
 }
 
 // check winner function
 // Add how many times the player has won the game
 function checkWinner() {
   if (finalScore1 >= target) {
+    player1_win++;
     player2_container.setAttribute("id", "winner-container");
     winner.push({
       player1: {
@@ -203,9 +216,11 @@ function checkWinner() {
         win: 0,
       },
     });
-    player_winner[0].innerText = "You Pass the Target";
-    player_winner[1].innerText = "You Win!";
+    player_winner[0].innerText = "You Win!";
+    player_winner[1].innerText = "You didn't Pass the Target";
+    removeListener();
   } else if (finalScore2 >= target) {
+    player2_win++;
     player1_container.setAttribute("id", "winner-container");
     winner.push({
       player1: {
@@ -217,7 +232,20 @@ function checkWinner() {
         win: 1,
       },
     });
-    player_winner[0].innerText = "You Win!";
-    player_winner[1].innerText = "You Pass the Target";
+    player_winner[1].innerText = "You Win!";
+    player_winner[0].innerText = "You didn't Pass the Target";
+    removeListener();
   }
+}
+
+function removeListener() {
+  roll.removeEventListener("click", RollDices);
+  hold.removeEventListener("click", holdScore);
+  document.removeEventListener("keydown", keyDownFunction);
+}
+function reAddListener() {
+  roll.addEventListener("click", RollDices);
+  hold.addEventListener("click", holdScore);
+  newGame.addEventListener("click", newGameFunction);
+  document.addEventListener("keydown", keyDownFunction);
 }
