@@ -1,6 +1,7 @@
 //catch DOM Window instruction
 const start_window = document.querySelector("#window");
 const inputTarget = document.querySelector("#target");
+const list = document.querySelector('#list')
 
 //catch DOM Sections
 const player1_currentScore = document.querySelector("#player1-score");
@@ -9,6 +10,7 @@ const player1_finalScore = document.querySelector("#final-score1");
 const player2_finalScore = document.querySelector("#final-score2");
 const player1_container = document.querySelector("#player1-container");
 const player2_container = document.querySelector("#player2-container");
+const player_winner = document.querySelectorAll(".winner");
 
 //catch DOM Buttons
 const newGame = document.querySelector("#new-game");
@@ -89,36 +91,35 @@ function RollDices() {
       holdingPlayer1.innerText = "";
       holdingPlayer2.innerText = "";
     }, 3000);
-    changingPlayers()
-} else {
+    changingPlayers();
+  } else {
     // player will add dice faces number to his current score
     currentPlayer == 1
-    ? (currentScore1 += diceRoll1 + diceRoll2)
-    : (currentScore2 += diceRoll1 + diceRoll2);
-}
-saveCurrent();
-checkWinner();
+      ? (currentScore1 += diceRoll1 + diceRoll2)
+      : (currentScore2 += diceRoll1 + diceRoll2);
+  }
+  saveCurrent();
+  checkWinner();
 }
 // save scores to DOM catcher variables
 function saveCurrent() {
-    player1_currentScore.children[1].innerText = currentScore1;
-    player2_currentScore.children[1].innerText = currentScore2;
+  player1_currentScore.children[1].innerText = currentScore1;
+  player2_currentScore.children[1].innerText = currentScore2;
 }
 
 // changing between players turn
-function changingPlayers(){
-    if(currentPlayer == 1){
-        player1_container.setAttribute('id' , "player2-container")
-        player2_container.setAttribute("id" , "player1-container")
-    }
-    else{
-        player1_container.setAttribute("id" , "player1-container")
-        player2_container.setAttribute("id" , "player2-container")
-    }
-    // player will loose his current score
-    currentPlayer == 1 ? (currentScore1 = 0) : (currentScore2 = 0);
-    currentPlayer = currentPlayer == 1 ? 2 : 1;
-} 
+function changingPlayers() {
+  if (currentPlayer == 1) {
+    player1_container.setAttribute("id", "player2-container");
+    player2_container.setAttribute("id", "player1-container");
+  } else {
+    player1_container.setAttribute("id", "player1-container");
+    player2_container.setAttribute("id", "player2-container");
+  }
+  // player will loose his current score
+  currentPlayer == 1 ? (currentScore1 = 0) : (currentScore2 = 0);
+  currentPlayer = currentPlayer == 1 ? 2 : 1;
+}
 
 // Hold the current player his current Score
 hold.addEventListener("click", holdScore);
@@ -129,7 +130,7 @@ function holdScore() {
     : (finalScore2 += currentScore2);
   player1_finalScore.innerText = finalScore1;
   player2_finalScore.innerText = finalScore2;
-  changingPlayers()
+  changingPlayers();
   currentScore1 = 0;
   currentScore2 = 0;
   saveCurrent();
@@ -158,14 +159,18 @@ function newGameFunction() {
   player2_finalScore.innerText = 0;
 
   start_window.classList.remove("hide");
+  list.setAttribute('id' , 'hide-list')
   inputTarget.value = 100;
+
+  player_winner[0].innerText = ""
+  player_winner[1].innerText = ""
 }
 
 // check winner function
 // Add how many times the player has won the game
 function checkWinner() {
-  if (finalScore1 >= target || finalScore1 + currentScore1 >= target) {
-    setTimeout(alert("player 1 wins"), 600);
+  if (finalScore1 >= target) {
+    player2_container.setAttribute("id", "winner-container");
     winner.push({
       player1: {
         finalScore: finalScore1 + currentScore1,
@@ -176,10 +181,10 @@ function checkWinner() {
         win: 0,
       },
     });
-    console.log("winner ", winner);
-    newGameFunction();
-  } else if (finalScore2 >= target || finalScore2 + currentScore2 >= target) {
-    setTimeout(alert("player 2 wins"), 600);
+    player_winner[0].innerText = "You Pass the Target";
+    player_winner[1].innerText = "You Win!";
+  } else if (finalScore2 >= target) {
+    player1_container.setAttribute("id", "winner-container");
     winner.push({
       player1: {
         finalScore: finalScore1 + currentScore1,
@@ -190,7 +195,7 @@ function checkWinner() {
         win: 1,
       },
     });
-    console.log("winner ", winner);
-    newGameFunction();
+    player_winner[0].innerText = "You Win!";
+    player_winner[1].innerText = "You Pass the Target";
   }
 }

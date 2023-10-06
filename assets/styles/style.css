@@ -16,19 +16,25 @@ body {
 }
 
 #player1-container {
-  background-color: coral;
+  background-color: chocolate;
 }
 #player2-container {
   background-color: chocolate;
+  opacity: 80%;
+}
+#final-score1,
+#final-score2 {
+  color: brown;
 }
 #player1-score,
 #player2-score {
   position: absolute;
   bottom: 100px;
-  left: 40%;
-  padding: 20px;
+  left: 25%;
   border-radius: 10px;
   background-color: brown;
+  padding: 5%;
+  width: 40%;
 }
 
 #game {
@@ -54,6 +60,23 @@ body {
   padding: 10px;
 }
 
+/* winner style */
+#winner-container {
+  background-color: black;
+  color: brown;
+}
+#player1-score .title,
+#player1-score .score,
+#player2-score .title,
+#player2-score .score {
+  margin: 10%;
+  color: white;
+  font-size: 25px;
+}
+.winner {
+  color: white;
+}
+
 /*holding game style*/
 .holdingPlayer {
   font-size: 20px;
@@ -72,6 +95,9 @@ body {
 
 .hide {
   visibility: hidden;
+}
+#hide-list {
+  display: none;
 }
 
 #window ul {
@@ -121,7 +147,7 @@ body {
 @media (max-width: 800px) {
   #player1-score,
   #player2-score {
-    padding: 10px;
+    padding: 5px;
   }
   #game img {
     width: 50px;
@@ -145,10 +171,11 @@ body {
     font-size: 15px;
   }
 }
-@media (min-width: 500px) and (max-width : 800px){
-    #player1-score,
-    #player2-score {
-        left: 30%;
-        bottom: 10px;
-    }  
+@media (min-width: 500px) and (max-width: 800px) {
+  #player1-score,
+  #player2-score {
+    left: 20%;
+    bottom: 10px;
+    width: 50%;
+  }
 }
