@@ -94,12 +94,7 @@ function setRandomDices() {
   diceImage2.setAttribute("src", `assets/Images/dice-${diceRoll2}.png`);
 }
 // holding player
-const holdingPlayer1 = document.createElement("p");
-const holdingPlayer2 = document.createElement("p");
-holdingPlayer1.classList.add("holdingPlayer");
-holdingPlayer2.classList.add("holdingPlayer");
-player1_finalScore.appendChild(holdingPlayer1);
-player2_finalScore.appendChild(holdingPlayer2);
+const msg = document.getElementsByClassName("msg");
 
 // roll button add listener when clicked
 roll.addEventListener("click", RollDices);
@@ -110,15 +105,11 @@ function RollDices() {
   if (diceRoll1 == diceRoll2) {
     /* if you get 6 and 6 hold your event listeners for 1 second and display a message that you got 6 and 6*/
     removeListener();
-    const msg =
-      "HOLDING ROLL DICE \n You lost your current score, and your turn";
-    currentPlayer == 1
-      ? (holdingPlayer1.innerText = msg)
-      : (holdingPlayer2.innerText = msg);
+    msg[currentPlayer - 1].classList.remove('hide')
     setTimeout(() => {
       reAddListener();
-      holdingPlayer1.innerText = "";
-      holdingPlayer2.innerText = "";
+      msg[0].classList.add('hide')
+      msg[1].classList.add('hide')
     }, 3000);
     changingPlayers();
   } else {
@@ -174,7 +165,7 @@ function holdScore() {
 newGame.addEventListener("click", newGameFunction);
 function newGameFunction() {
   reAddListener();
-  console.log("neew Hame");
+
   target = 0;
   finalScore1 = 0;
   finalScore2 = 0;
@@ -198,6 +189,9 @@ function newGameFunction() {
 
   PreviousWin_player1.innerText = player1_win;
   PreviousWin_player2.innerText = player2_win;
+
+  player1_container.setAttribute("id", "player1-container");
+  player2_container.setAttribute("id", "player2-container");
 }
 
 // check winner function
