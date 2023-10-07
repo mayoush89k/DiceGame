@@ -100,8 +100,8 @@ body {
 }
 
 /*holding game style*/
-.holdingPlayer {
-  font-size: 20px;
+.msg {
+  font-size: 18px;
   text-align: center;
 }
 

@@ -53,6 +53,12 @@ const PreviousWin_player2 = document.getElementById("db-player2");
 let player1_win = 0;
 let player2_win = 0;
 
+//Sound Effect DOM catcher
+const RollSound = document.getElementById("rollDice");
+const HoldSound = document.getElementById("HoldingTurn");
+const finished = document.getElementById("gameFinished");
+const Winning = document.getElementById("Winning");
+
 // Key Press event listener - easier for user
 document.addEventListener("keydown", keyDownFunction);
 function keyDownFunction(e) {
@@ -94,31 +100,28 @@ function setRandomDices() {
   diceImage2.setAttribute("src", `assets/Images/dice-${diceRoll2}.png`);
 }
 // holding player
-const holdingPlayer1 = document.createElement("p");
-const holdingPlayer2 = document.createElement("p");
-holdingPlayer1.classList.add("holdingPlayer");
-holdingPlayer2.classList.add("holdingPlayer");
-player1_finalScore.appendChild(holdingPlayer1);
-player2_finalScore.appendChild(holdingPlayer2);
+const msg = document.getElementsByClassName("msg");
 
 // roll button add listener when clicked
 roll.addEventListener("click", RollDices);
 
 function RollDices() {
+  RollSound.play();
+  removeListener();
+  setTimeout(() => {
+    reAddListener();
+  }, 2500);
   setRandomDices(); // generate random dices face
   // check rolled same dice faces
   if (diceRoll1 == diceRoll2) {
+    HoldSound.play();
     /* if you get 6 and 6 hold your event listeners for 1 second and display a message that you got 6 and 6*/
     removeListener();
-    const msg =
-      "HOLDING ROLL DICE \n You lost your current score, and your turn";
-    currentPlayer == 1
-      ? (holdingPlayer1.innerText = msg)
-      : (holdingPlayer2.innerText = msg);
+    msg[currentPlayer - 1].classList.remove("hide");
     setTimeout(() => {
       reAddListener();
-      holdingPlayer1.innerText = "";
-      holdingPlayer2.innerText = "";
+      msg[0].classList.add("hide");
+      msg[1].classList.add("hide");
     }, 3000);
     changingPlayers();
   } else {
@@ -174,7 +177,7 @@ function holdScore() {
 newGame.addEventListener("click", newGameFunction);
 function newGameFunction() {
   reAddListener();
-  console.log("neew Hame");
+
   target = 0;
   finalScore1 = 0;
   finalScore2 = 0;
@@ -198,6 +201,9 @@ function newGameFunction() {
 
   PreviousWin_player1.innerText = player1_win;
   PreviousWin_player2.innerText = player2_win;
+
+  player1_container.setAttribute("id", "player1-container");
+  player2_container.setAttribute("id", "player2-container");
 }
 
 // check winner function
@@ -219,22 +225,28 @@ function checkWinner() {
     player_winner[0].innerText = "You Win!";
     player_winner[1].innerText = "You didn't Pass the Target";
     removeListener();
+    finished.play();
+    Winning.play();
+    newGame.removeAttribute("disabled" , false)
   } else if (finalScore2 >= target) {
     player2_win++;
     player1_container.setAttribute("id", "winner-container");
     winner.push({
       player1: {
-        finalScore: finalScore1 ,
+        finalScore: finalScore1,
         win: 0,
       },
       player2: {
-        finalScore: finalScore2 ,
+        finalScore: finalScore2,
         win: 1,
       },
     });
     player_winner[1].innerText = "You Win!";
     player_winner[0].innerText = "You didn't Pass the Target";
     removeListener();
+    finished.play();
+    Winning.play();
+    newGame.removeAttribute("disabled" , false)
   }
 }
 
@@ -242,10 +254,16 @@ function removeListener() {
   roll.removeEventListener("click", RollDices);
   hold.removeEventListener("click", holdScore);
   document.removeEventListener("keydown", keyDownFunction);
+  roll.setAttribute("disabled" , true)
+  hold.setAttribute("disabled" , true)
+  newGame.setAttribute("disabled" , true)
 }
 function reAddListener() {
-  roll.addEventListener("click", RollDices);
-  hold.addEventListener("click", holdScore);
-  newGame.addEventListener("click", newGameFunction);
-  document.addEventListener("keydown", keyDownFunction);
+    roll.addEventListener("click", RollDices);
+    hold.addEventListener("click", holdScore);
+    newGame.addEventListener("click", newGameFunction);
+    document.addEventListener("keydown", keyDownFunction);
+    roll.removeAttribute("disabled" , false)
+    hold.removeAttribute("disabled" , false)
+    newGame.removeAttribute("disabled" , false)
 }
