@@ -53,6 +53,12 @@ const PreviousWin_player2 = document.getElementById("db-player2");
 let player1_win = 0;
 let player2_win = 0;
 
+//Sound Effect DOM catcher
+const RollSound = document.getElementById("rollDice");
+const HoldSound = document.getElementById("HoldingTurn");
+const finished = document.getElementById("gameFinished");
+const Winning = document.getElementById("Winning");
+
 // Key Press event listener - easier for user
 document.addEventListener("keydown", keyDownFunction);
 function keyDownFunction(e) {
@@ -100,16 +106,22 @@ const msg = document.getElementsByClassName("msg");
 roll.addEventListener("click", RollDices);
 
 function RollDices() {
+  RollSound.play();
+  removeListener();
+  setTimeout(() => {
+    reAddListener();
+  }, 2500);
   setRandomDices(); // generate random dices face
   // check rolled same dice faces
   if (diceRoll1 == diceRoll2) {
+    HoldSound.play();
     /* if you get 6 and 6 hold your event listeners for 1 second and display a message that you got 6 and 6*/
     removeListener();
-    msg[currentPlayer - 1].classList.remove('hide')
+    msg[currentPlayer - 1].classList.remove("hide");
     setTimeout(() => {
       reAddListener();
-      msg[0].classList.add('hide')
-      msg[1].classList.add('hide')
+      msg[0].classList.add("hide");
+      msg[1].classList.add("hide");
     }, 3000);
     changingPlayers();
   } else {
@@ -213,22 +225,28 @@ function checkWinner() {
     player_winner[0].innerText = "You Win!";
     player_winner[1].innerText = "You didn't Pass the Target";
     removeListener();
+    finished.play();
+    Winning.play();
+    newGame.removeAttribute("disabled" , false)
   } else if (finalScore2 >= target) {
     player2_win++;
     player1_container.setAttribute("id", "winner-container");
     winner.push({
       player1: {
-        finalScore: finalScore1 ,
+        finalScore: finalScore1,
         win: 0,
       },
       player2: {
-        finalScore: finalScore2 ,
+        finalScore: finalScore2,
         win: 1,
       },
     });
     player_winner[1].innerText = "You Win!";
     player_winner[0].innerText = "You didn't Pass the Target";
     removeListener();
+    finished.play();
+    Winning.play();
+    newGame.removeAttribute("disabled" , false)
   }
 }
 
@@ -236,10 +254,16 @@ function removeListener() {
   roll.removeEventListener("click", RollDices);
   hold.removeEventListener("click", holdScore);
   document.removeEventListener("keydown", keyDownFunction);
+  roll.setAttribute("disabled" , true)
+  hold.setAttribute("disabled" , true)
+  newGame.setAttribute("disabled" , true)
 }
 function reAddListener() {
-  roll.addEventListener("click", RollDices);
-  hold.addEventListener("click", holdScore);
-  newGame.addEventListener("click", newGameFunction);
-  document.addEventListener("keydown", keyDownFunction);
+    roll.addEventListener("click", RollDices);
+    hold.addEventListener("click", holdScore);
+    newGame.addEventListener("click", newGameFunction);
+    document.addEventListener("keydown", keyDownFunction);
+    roll.removeAttribute("disabled" , false)
+    hold.removeAttribute("disabled" , false)
+    newGame.removeAttribute("disabled" , false)
 }
