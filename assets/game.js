@@ -208,11 +208,11 @@ function checkWinner() {
     player2_container.setAttribute("id", "winner-container");
     winner.push({
       player1: {
-        finalScore: finalScore1 + currentScore1,
+        finalScore: finalScore1,
         win: 1,
       },
       player2: {
-        finalScore: finalScore2 + currentScore2,
+        finalScore: finalScore2,
         win: 0,
       },
     });
@@ -224,11 +224,11 @@ function checkWinner() {
     player1_container.setAttribute("id", "winner-container");
     winner.push({
       player1: {
-        finalScore: finalScore1 + currentScore1,
+        finalScore: finalScore1 ,
         win: 0,
       },
       player2: {
-        finalScore: finalScore2 + currentScore2,
+        finalScore: finalScore2 ,
         win: 1,
       },
     });
