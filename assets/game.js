@@ -267,3 +267,9 @@ function reAddListener() {
     hold.removeAttribute("disabled" , false)
     newGame.removeAttribute("disabled" , false)
 }
+
+// more Games 
+const more = document.getElementById('more')
+more.addEventListener('click' , () => {
+    window.location = 'https://ladder-and-snake.netlify.app/' 
+})
