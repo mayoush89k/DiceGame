@@ -209,7 +209,7 @@ function newGameFunction() {
 // check winner function
 // Add how many times the player has won the game
 function checkWinner() {
-  if (finalScore1 >= target) {
+  if (finalScore1 == target || finalScore2 > target) {
     player1_win++;
     player2_container.setAttribute("id", "winner-container");
     winner.push({
@@ -223,12 +223,12 @@ function checkWinner() {
       },
     });
     player_winner[0].innerText = "You Win!";
-    player_winner[1].innerText = "You didn't Pass the Target";
+    player_winner[1].innerText = "You missed the Target";
     removeListener();
     finished.play();
     Winning.play();
     newGame.removeAttribute("disabled" , false)
-  } else if (finalScore2 >= target) {
+  } else if (finalScore2 == target || finalScore1 > target) {
     player2_win++;
     player1_container.setAttribute("id", "winner-container");
     winner.push({
