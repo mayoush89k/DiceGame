@@ -113,7 +113,7 @@ function RollDices() {
   }, 2500);
   setRandomDices(); // generate random dices face
   // check rolled same dice faces
-  if (diceRoll1 == diceRoll2) {
+  if (diceRoll1 == 6 && diceRoll2 == 6) {
     HoldSound.play();
     /* if you get 6 and 6 hold your event listeners for 1 second and display a message that you got 6 and 6*/
     removeListener();
